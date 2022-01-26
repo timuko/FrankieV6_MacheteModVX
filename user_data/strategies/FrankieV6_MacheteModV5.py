@@ -24,73 +24,57 @@ class FrankieV6_MacheteModV5(IStrategy):
     use_sell_signal = True
     sell_profit_only = False
     ignore_roi_if_buy_signal = False
-    use_dynamic_roi = False
 
     trailing_stop = False
     trailing_stop_positive = 0.01
     trailing_only_offset_is_reached = False
     trailing_stop_positive_offset = 0.047
 
-    use_custom_stoploss = False
     stoploss = -0.085
     
     timeframe = '5m'
     inf_1h = '1h' 
 
 
-    protections_should_optimize_max_drawdown = True
+    protections_should_optimize_max_drawdown = False
     
-    buy_should_optimize_guards = True
-    buy_should_optimize_condition_common = True
-    buy_should_optimize_condition_1 = True
-    buy_should_optimize_condition_2 = True
-    buy_should_optimize_condition_3 = True
-    buy_should_optimize_condition_4 = True
-    buy_should_optimize_condition_5 = True
-    buy_should_optimize_condition_6 = True
-    buy_should_optimize_condition_7 = True
-    buy_should_optimize_condition_8 = True
-    buy_should_optimize_condition_9 = True
-    buy_should_optimize_condition_10 = True
-    buy_should_optimize_condition_11 = True
-    buy_should_optimize_condition_12 = True
-    buy_should_optimize_condition_13 = True
-    buy_should_optimize_condition_14 = True
-    buy_should_optimize_condition_15 = True
-    buy_should_optimize_condition_16 = True
-    buy_should_optimize_condition_17 = True
-    buy_should_optimize_condition_18 = True
-    buy_should_optimize_condition_19 = True
-    buy_should_optimize_condition_20 = True
-    buy_should_optimize_condition_21 = True
-    buy_should_optimize_condition_22 = True
-    buy_should_optimize_condition_23 = True
-    buy_should_optimize_condition_24 = True
-    buy_should_optimize_condition_25 = True
-    buy_should_optimize_condition_26 = True
-    buy_should_optimize_condition_27 = True
+    buy_should_optimize_scores = True
+    buy_should_optimize_guards = False
+    buy_should_optimize_condition_common = False
+    buy_should_optimize_condition_1 = False
+    buy_should_optimize_condition_2 = False
+    buy_should_optimize_condition_3 = False
+    buy_should_optimize_condition_4 = False
+    buy_should_optimize_condition_5 = False
+    buy_should_optimize_condition_6 = False
+    buy_should_optimize_condition_7 = False
+    buy_should_optimize_condition_8 = False
+    buy_should_optimize_condition_9 = False
+    buy_should_optimize_condition_10 = False
+    buy_should_optimize_condition_11 = False
+    buy_should_optimize_condition_12 = False
+    buy_should_optimize_condition_13 = False
+    buy_should_optimize_condition_14 = False
+    buy_should_optimize_condition_15 = False
+    buy_should_optimize_condition_16 = False
+    buy_should_optimize_condition_17 = False
+    buy_should_optimize_condition_18 = False
+    buy_should_optimize_condition_19 = False
+    buy_should_optimize_condition_20 = False
+    buy_should_optimize_condition_21 = False
+    buy_should_optimize_condition_22 = False
+    buy_should_optimize_condition_23 = False
+    buy_should_optimize_condition_24 = False
+    buy_should_optimize_condition_25 = False
+    buy_should_optimize_condition_26 = False
+    buy_should_optimize_condition_27 = False
     
-    sell_should_optimize_dynamic_roi = False
-    sell_should_optimize_custom_stoploss = True
     sell_should_optimize_custom_sell = False
     
-    sell_should_optimize_condition_1 = False
-    sell_should_optimize_condition_2 = False
-    sell_should_optimize_condition_3 = False
-    sell_should_optimize_condition_4 = False
-    sell_should_optimize_condition_5 = False
-    sell_should_optimize_condition_6 = False
-    sell_should_optimize_condition_7 = False
-    sell_should_optimize_condition_8 = False
-    sell_should_optimize_condition_common_9_10_11_12_13 = False
-    sell_should_optimize_condition_9 = False
-    sell_should_optimize_condition_10 = False
-    sell_should_optimize_condition_11 = False
-    sell_should_optimize_condition_12 = False
-    sell_should_optimize_condition_13 = False
-
 
     protections_max_drawdown_max_allowed_drawdown = DecimalParameter(0.01, 0.20, default=0.10, load=True, space='protection', decimals=2, optimize=protections_should_optimize_max_drawdown)
+
+    buy_min_score = IntParameter(3, 10, default=5, load=True, space='buy', optimize=False)
 
     buy_guard_ewo_low = DecimalParameter(-20.0, -8.3, default=-20.0, load=True, space='buy', optimize=buy_should_optimize_guards) 
     buy_guard_ewo_high = DecimalParameter(2.0, 12.0, default=6.0, load=True, space='buy', optimize=buy_should_optimize_guards) 
@@ -133,6 +117,7 @@ class FrankieV6_MacheteModV5(IStrategy):
     buy_voting_ensemble = IntParameter(1, 6, default=1, load=True, space='buy', optimize=buy_should_optimize_condition_common)
 
     buy_condition_1_enable = CategoricalParameter([True, False], default=True, space='buy', load=True, optimize=buy_should_optimize_condition_1)
+    buy_condition_score_1 = IntParameter(0, 5, default=1, load=True, space='buy', optimize=buy_should_optimize_scores)
     buy_min_inc_1 = DecimalParameter(0.01, 0.05, default=0.032, space='buy', decimals=3, load=True, optimize=buy_should_optimize_condition_1)
     buy_rsi_14_1h_min_1 = DecimalParameter(25.0, 40.0, default=38.4, space='buy', decimals=1, load=True, optimize=buy_should_optimize_condition_1)
     buy_rsi_14_1h_max_1 = DecimalParameter(70.0, 90.0, default=81.1, space='buy', decimals=1, load=True, optimize=buy_should_optimize_condition_1)
@@ -140,6 +125,7 @@ class FrankieV6_MacheteModV5(IStrategy):
     buy_mfi_1 = DecimalParameter(20.0, 40.0, default=39.2, space='buy', decimals=1, load=True, optimize=buy_should_optimize_condition_1)
 
     buy_condition_2_enable = CategoricalParameter([True, False], default=True, space='buy', load=True, optimize=buy_should_optimize_condition_2)
+    buy_condition_score_2 = IntParameter(0, 5, default=1, load=True, space='buy', optimize=buy_should_optimize_scores)
     buy_volume_2 = DecimalParameter(1.0, 10.0, default=2.6, space='buy', decimals=1, load=True, optimize=buy_should_optimize_condition_2)
     buy_rsi_14_1h_min_2 = DecimalParameter(30.0, 40.0, default=32.0, space='buy', decimals=1, load=True, optimize=buy_should_optimize_condition_2)
     buy_rsi_14_1h_max_2 = DecimalParameter(70.0, 95.0, default=84.0, space='buy', decimals=1, load=True, optimize=buy_should_optimize_condition_2)
@@ -148,36 +134,43 @@ class FrankieV6_MacheteModV5(IStrategy):
     buy_bb_offset_2 = DecimalParameter(0.97, 0.999, default=0.983, space='buy', decimals=3, load=True, optimize=buy_should_optimize_condition_2)
 
     buy_condition_3_enable = CategoricalParameter([True, False], default=True, space='buy', load=True, optimize=buy_should_optimize_condition_3)
+    buy_condition_score_3 = IntParameter(0, 5, default=1, load=True, space='buy', optimize=buy_should_optimize_scores)
     buy_bb40_bbdelta_close_3 = DecimalParameter(0.005, 0.06, default=0.057, space='buy', load=True, optimize=buy_should_optimize_condition_3)
     buy_bb40_closedelta_close_3 = DecimalParameter(0.01, 0.03, default=0.023, space='buy', load=True, optimize=buy_should_optimize_condition_3)
     buy_bb40_tail_bbdelta_3 = DecimalParameter(0.15, 0.45, default=0.418, space='buy', load=True, optimize=buy_should_optimize_condition_3)
     buy_ema_rel_3 = DecimalParameter(0.97, 0.999, default=0.986, space='buy', decimals=3, load=True, optimize=buy_should_optimize_condition_3)
 
     buy_condition_4_enable = CategoricalParameter([True, False], default=True, space='buy', load=True, optimize=buy_should_optimize_condition_4)
+    buy_condition_score_4 = IntParameter(0, 5, default=1, load=True, space='buy', optimize=buy_should_optimize_scores)
     buy_bb20_close_bblowerband_4 = DecimalParameter(0.96, 0.99, default=0.979, space='buy', load=True, optimize=buy_should_optimize_condition_4)
     buy_bb20_volume_4 = DecimalParameter(1.0, 20.0, default=10.0, space='buy', decimals=2, load=True, optimize=buy_should_optimize_condition_4)
 
     buy_condition_5_enable = CategoricalParameter([True, False], default=True, space='buy', load=True, optimize=buy_should_optimize_condition_5)
+    buy_condition_score_5 = IntParameter(0, 5, default=1, load=True, space='buy', optimize=buy_should_optimize_scores)
     buy_ema_open_mult_5 = DecimalParameter(0.016, 0.03, default=0.019, space='buy', decimals=3, load=True, optimize=buy_should_optimize_condition_5)
     buy_bb_offset_5 = DecimalParameter(0.98, 1.0, default=0.999, space='buy', decimals=3, load=True, optimize=buy_should_optimize_condition_5)
     buy_ema_rel_5 = DecimalParameter(0.97, 0.999, default=0.982, space='buy', decimals=3, load=True, optimize=buy_should_optimize_condition_5)
 
     buy_condition_6_enable = CategoricalParameter([True, False], default=True, space='buy', load=True, optimize=buy_should_optimize_condition_6)
+    buy_condition_score_6 = IntParameter(0, 5, default=1, load=True, space='buy', optimize=buy_should_optimize_scores)
     buy_ema_open_mult_6 = DecimalParameter(0.02, 0.03, default=0.025, space='buy', decimals=3, load=True, optimize=buy_should_optimize_condition_6)
     buy_bb_offset_6 = DecimalParameter(0.98, 0.999, default=0.984, space='buy', decimals=3, load=True, optimize=buy_should_optimize_condition_6)
 
     buy_condition_7_enable = CategoricalParameter([True, False], default=True, space='buy', load=True, optimize=buy_should_optimize_condition_7)
+    buy_condition_score_7 = IntParameter(0, 5, default=1, load=True, space='buy', optimize=buy_should_optimize_scores)
     buy_volume_7 = DecimalParameter(1.0, 10.0, default=2.0, space='buy', decimals=1, load=True, optimize=buy_should_optimize_condition_7)
     buy_ema_open_mult_7 = DecimalParameter(0.02, 0.04, default=0.03, space='buy', decimals=3, load=True, optimize=buy_should_optimize_condition_7)
     buy_rsi_7 = DecimalParameter(24.0, 50.0, default=36.0, space='buy', decimals=1, load=True, optimize=buy_should_optimize_condition_7)
     buy_ema_rel_7 = DecimalParameter(0.97, 0.999, default=0.986, space='buy', decimals=3, load=True, optimize=buy_should_optimize_condition_7)
 
     buy_condition_8_enable = CategoricalParameter([True, False], default=True, space='buy', load=True, optimize=buy_should_optimize_condition_8)
+    buy_condition_score_8 = IntParameter(0, 5, default=1, load=True, space='buy', optimize=buy_should_optimize_scores)
     buy_volume_8 = DecimalParameter(1.0, 6.0, default=2.0, space='buy', decimals=1, load=True, optimize=buy_should_optimize_condition_8)
     buy_rsi_8 = DecimalParameter(36.0, 40.0, default=20.0, space='buy', decimals=1, load=True, optimize=buy_should_optimize_condition_8)
     buy_tail_diff_8 = DecimalParameter(3.0, 10.0, default=3.5, space='buy', decimals=1, load=True, optimize=buy_should_optimize_condition_8)
 
     buy_condition_9_enable = CategoricalParameter([True, False], default=True, space='buy', load=True, optimize=buy_should_optimize_condition_9)
+    buy_condition_score_9 = IntParameter(0, 5, default=1, load=True, space='buy', optimize=buy_should_optimize_scores)
     buy_volume_9 = DecimalParameter(1.0, 4.0, default=1.0, space='buy', decimals=2, load=True, optimize=buy_should_optimize_condition_9)
     buy_ma_offset_9 = DecimalParameter(0.94, 0.99, default=0.97, space='buy', decimals=3, load=True, optimize=buy_should_optimize_condition_9)
     buy_bb_offset_9 = DecimalParameter(0.97, 0.99, default=0.985, space='buy', decimals=3, load=True, optimize=buy_should_optimize_condition_9)
@@ -186,12 +179,14 @@ class FrankieV6_MacheteModV5(IStrategy):
     buy_mfi_9 = DecimalParameter(36.0, 65.0, default=30.0, space='buy', decimals=1, load=True, optimize=buy_should_optimize_condition_9)
 
     buy_condition_10_enable = CategoricalParameter([True, False], default=True, space='buy', load=True, optimize=buy_should_optimize_condition_10)
+    buy_condition_score_10 = IntParameter(0, 5, default=1, load=True, space='buy', optimize=buy_should_optimize_scores)
     buy_volume_10 = DecimalParameter(1.0, 8.0, default=2.4, space='buy', decimals=1, load=True, optimize=buy_should_optimize_condition_10)
     buy_ma_offset_10 = DecimalParameter(0.93, 0.97, default=0.944, space='buy', decimals=3, load=True, optimize=buy_should_optimize_condition_10)
     buy_bb_offset_10 = DecimalParameter(0.97, 0.99, default=0.994, space='buy', decimals=3, load=True, optimize=buy_should_optimize_condition_10)
     buy_rsi_14_1h_10 = DecimalParameter(20.0, 40.0, default=37.0, space='buy', decimals=1, load=True, optimize=buy_should_optimize_condition_10)
 
     buy_condition_11_enable = CategoricalParameter([True, False], default=True, space='buy', load=True, optimize=buy_should_optimize_condition_11)
+    buy_condition_score_11 = IntParameter(0, 5, default=1, load=True, space='buy', optimize=buy_should_optimize_scores)
     buy_ma_offset_11 = DecimalParameter(0.93, 0.99, default=0.939, space='buy', decimals=3, load=True, optimize=buy_should_optimize_condition_11)
     buy_min_inc_11 = DecimalParameter(0.005, 0.05, default=0.022, space='buy', decimals=3, load=True, optimize=buy_should_optimize_condition_11)
     buy_rsi_14_1h_min_11 = DecimalParameter(40.0, 60.0, default=56.0, space='buy', decimals=1, load=True, optimize=buy_should_optimize_condition_11)
@@ -200,23 +195,27 @@ class FrankieV6_MacheteModV5(IStrategy):
     buy_mfi_11 = DecimalParameter(36.0, 56.0, default=38.0, space='buy', decimals=1, load=True, optimize=buy_should_optimize_condition_11)
 
     buy_condition_12_enable = CategoricalParameter([True, False], default=True, space='buy', load=True, optimize=buy_should_optimize_condition_12)
+    buy_condition_score_12 = IntParameter(0, 5, default=1, load=True, space='buy', optimize=buy_should_optimize_scores)   
     buy_volume_12 = DecimalParameter(1.0, 10.0, default=1.7, space='buy', decimals=1, load=True, optimize=buy_should_optimize_condition_12)
     buy_ma_offset_12 = DecimalParameter(0.93, 0.97, default=0.936, space='buy', decimals=3, load=True, optimize=buy_should_optimize_condition_12)
     buy_rsi_12 = DecimalParameter(26.0, 40.0, default=30.0, space='buy', decimals=1, load=True, optimize=buy_should_optimize_condition_12)
     buy_ewo_12 = DecimalParameter(2.0, 6.0, default=2.0, space='buy', decimals=1, load=True, optimize=buy_should_optimize_condition_12)
 
     buy_condition_13_enable = CategoricalParameter([True, False], default=True, space='buy', load=True, optimize=buy_should_optimize_condition_13)
+    buy_condition_score_13 = IntParameter(0, 5, default=1, load=True, space='buy', optimize=buy_should_optimize_scores)
     buy_volume_13 = DecimalParameter(1.0, 10.0, default=1.6, space='buy', decimals=1, load=True, optimize=buy_should_optimize_condition_13)
     buy_ma_offset_13 = DecimalParameter(0.93, 0.98, default=0.978, space='buy', decimals=3, load=True, optimize=buy_should_optimize_condition_13)
     buy_ewo_13 = DecimalParameter(-14.0, -7.0, default=-10.4, space='buy', decimals=1, load=True, optimize=buy_should_optimize_condition_13)
 
     buy_condition_14_enable = CategoricalParameter([True, False], default=True, space='buy', load=True, optimize=buy_should_optimize_condition_14)
+    buy_condition_score_14 = IntParameter(0, 5, default=1, load=True, space='buy', optimize=buy_should_optimize_scores)
     buy_volume_14 = DecimalParameter(1.0, 10.0, default=2.0, space='buy', decimals=1, load=True, optimize=buy_should_optimize_condition_14)
     buy_ema_open_mult_14 = DecimalParameter(0.01, 0.03, default=0.014, space='buy', decimals=3, load=True, optimize=buy_should_optimize_condition_14)
     buy_bb_offset_14 = DecimalParameter(0.98, 1.0, default=0.986, space='buy', decimals=3, load=True, optimize=buy_should_optimize_condition_14)
     buy_ma_offset_14 = DecimalParameter(0.93, 0.99, default=0.97, space='buy', decimals=3, load=True, optimize=buy_should_optimize_condition_14)
 
     buy_condition_15_enable = CategoricalParameter([True, False], default=True, space='buy', load=True, optimize=buy_should_optimize_condition_15)
+    buy_condition_score_15 = IntParameter(0, 5, default=1, load=True, space='buy', optimize=buy_should_optimize_scores)
     buy_volume_15 = DecimalParameter(1.0, 10.0, default=2.0, space='buy', decimals=1, load=True, optimize=buy_should_optimize_condition_15)
     buy_ema_open_mult_15 = DecimalParameter(0.02, 0.04, default=0.018, space='buy', decimals=3, load=True, optimize=buy_should_optimize_condition_15)
     buy_ma_offset_15 = DecimalParameter(0.93, 0.99, default=0.954, space='buy', decimals=3, load=True, optimize=buy_should_optimize_condition_15)
@@ -224,127 +223,68 @@ class FrankieV6_MacheteModV5(IStrategy):
     buy_ema_rel_15 = DecimalParameter(0.97, 0.999, default=0.988, space='buy', decimals=3, load=True, optimize=buy_should_optimize_condition_15)
 
     buy_condition_16_enable = CategoricalParameter([True, False], default=True, space='buy', load=True, optimize=buy_should_optimize_condition_16)
+    buy_condition_score_16 = IntParameter(0, 5, default=1, load=True, space='buy', optimize=buy_should_optimize_scores)
     buy_volume_16 = DecimalParameter(1.0, 10.0, default=2.0, space='buy', decimals=1, load=True, optimize=buy_should_optimize_condition_16)
     buy_ma_offset_16 = DecimalParameter(0.93, 0.97, default=0.952, space='buy', decimals=3, load=True, optimize=buy_should_optimize_condition_16)
     buy_rsi_16 = DecimalParameter(26.0, 50.0, default=31.0, space='buy', decimals=1, load=True, optimize=buy_should_optimize_condition_16)
     buy_ewo_16 = DecimalParameter(4.0, 8.0, default=2.8, space='buy', decimals=1, load=True, optimize=buy_should_optimize_condition_16)
 
     buy_condition_17_enable = CategoricalParameter([True, False], default=True, space='buy', load=True, optimize=buy_should_optimize_condition_17)
+    buy_condition_score_17 = IntParameter(0, 5, default=1, load=True, space='buy', optimize=buy_should_optimize_scores)
     buy_volume_17 = DecimalParameter(0.5, 8.0, default=2.0, space='buy', decimals=1, load=True, optimize=buy_should_optimize_condition_17)
     buy_ma_offset_17 = DecimalParameter(0.93, 0.98, default=0.958, space='buy', decimals=3, load=True, optimize=buy_should_optimize_condition_17)
     buy_ewo_17 = DecimalParameter(-18.0, -10.0, default=-12.0, space='buy', decimals=1, load=True, optimize=buy_should_optimize_condition_17)
 
     buy_condition_18_enable = CategoricalParameter([True, False], default=True, space='buy', load=True, optimize=buy_should_optimize_condition_18)
+    buy_condition_score_18 = IntParameter(0, 5, default=1, load=True, space='buy', optimize=buy_should_optimize_scores)
     buy_volume_18 = DecimalParameter(1.0, 6.0, default=2.0, space='buy', decimals=1, load=True, optimize=buy_should_optimize_condition_18)
     buy_rsi_18 = DecimalParameter(16.0, 32.0, default=26.0, space='buy', decimals=1, load=True, optimize=buy_should_optimize_condition_18)
     buy_bb_offset_18 = DecimalParameter(0.98, 1.0, default=0.982, space='buy', decimals=3, load=True, optimize=buy_should_optimize_condition_18)
 
     buy_condition_19_enable = CategoricalParameter([True, False], default=True, space='buy', load=True, optimize=buy_should_optimize_condition_19)
+    buy_condition_score_19 = IntParameter(0, 5, default=1, load=True, space='buy', optimize=buy_should_optimize_scores)
     buy_rsi_14_1h_min_19 = DecimalParameter(40.0, 70.0, default=65.3, space='buy', decimals=1, load=True, optimize=buy_should_optimize_condition_19) 
     buy_chop_min_19 = DecimalParameter(20.0, 60.0, default=58.2, space='buy', decimals=1, load=True, optimize=buy_should_optimize_condition_19) 
 
     buy_condition_20_enable = CategoricalParameter([True, False], default=True, space='buy', load=True, optimize=buy_should_optimize_condition_20)
+    buy_condition_score_20 = IntParameter(0, 5, default=1, load=True, space='buy', optimize=buy_should_optimize_scores)
     buy_volume_20 = DecimalParameter(0.5, 6.0, default=1.2, space='buy', decimals=1, load=True, optimize=buy_should_optimize_condition_20)
     buy_rsi_20 = DecimalParameter(20.0, 36.0, default=26.0, space='buy', decimals=1, load=True, optimize=buy_should_optimize_condition_20)
     buy_rsi_14_1h_20 = DecimalParameter(14.0, 30.0, default=20.0, space='buy', decimals=1, load=True, optimize=buy_should_optimize_condition_20)
 
     buy_condition_21_enable = CategoricalParameter([True, False], default=True, space='buy', load=True, optimize=buy_should_optimize_condition_21)
+    buy_condition_score_21 = IntParameter(0, 5, default=1, load=True, space='buy', optimize=buy_should_optimize_scores)
     buy_volume_21 = DecimalParameter(0.5, 6.0, default=3.0, space='buy', decimals=1, load=True, optimize=buy_should_optimize_condition_21)
     buy_rsi_21 = DecimalParameter(10.0, 28.0, default=23.0, space='buy', decimals=1, load=True, optimize=buy_should_optimize_condition_21)
     buy_rsi_14_1h_21 = DecimalParameter(18.0, 40.0, default=24.0, space='buy', decimals=1, load=True, optimize=buy_should_optimize_condition_21)
 
     buy_condition_22_enable = CategoricalParameter([True, False], default=True, space='buy', load=True, optimize=buy_should_optimize_condition_22)
+    buy_condition_score_22 = IntParameter(0, 5, default=1, load=True, space='buy', optimize=buy_should_optimize_scores)
     buy_rsi_22 =  DecimalParameter(10.0, 50.0, default=45.0, space='buy', decimals=1, load=True, optimize=buy_should_optimize_condition_22) 
     buy_ewo_high_22 = DecimalParameter(2.000, 3.000, default=2.327, space='buy', decimals=3, load=True, optimize=buy_should_optimize_condition_22) 
 
     buy_condition_23_enable = CategoricalParameter([True, False], default=True, space='buy', load=True, optimize=buy_should_optimize_condition_23)
+    buy_condition_score_23 = IntParameter(0, 5, default=1, load=True, space='buy', optimize=buy_should_optimize_scores)
     buy_multi_offset_low_offset_sma = DecimalParameter(0.9, 0.99, default=0.955, load=True, space='buy', optimize=buy_should_optimize_condition_23) 
     
     buy_condition_24_enable = CategoricalParameter([True, False], default=True, space='buy', load=True, optimize=buy_should_optimize_condition_24)
+    buy_condition_score_24 = IntParameter(0, 5, default=1, load=True, space='buy', optimize=buy_should_optimize_scores)   
     buy_multi_offset_low_offset_ema = DecimalParameter(0.9, 0.99, default=0.929, load=True, space='buy', optimize=buy_should_optimize_condition_24) 
     
     buy_condition_25_enable = CategoricalParameter([True, False], default=True, space='buy', load=True, optimize=buy_should_optimize_condition_25)
+    buy_condition_score_25 = IntParameter(0, 5, default=1, load=True, space='buy', optimize=buy_should_optimize_scores)
     buy_multi_offset_low_offset_trima = DecimalParameter(0.9, 0.99, default=0.949, load=True, space='buy', optimize=buy_should_optimize_condition_25) 
     
     buy_condition_26_enable = CategoricalParameter([True, False], default=True, space='buy', load=True, optimize=buy_should_optimize_condition_26)
+    buy_condition_score_26 = IntParameter(0, 5, default=1, load=True, space='buy', optimize=buy_should_optimize_scores)
     buy_multi_offset_low_offset_t3 = DecimalParameter(0.9, 0.99, default=0.975, load=True, space='buy', optimize=buy_should_optimize_condition_26) 
     
     buy_condition_27_enable = CategoricalParameter([True, False], default=True, space='buy', load=True, optimize=buy_should_optimize_condition_27)
+    buy_condition_score_27 = IntParameter(0, 5, default=1, load=True, space='buy', optimize=buy_should_optimize_scores)
     buy_multi_offset_low_offset_kama = DecimalParameter(0.9, 0.99, default=0.972, load=True, space='buy', optimize=buy_should_optimize_condition_27) 
  
-    buy_multi_offset_base_nb_candles_buy = IntParameter(5, 80, default=72, load=True, space='buy', optimize=buy_should_optimize_condition_common) 
-
-    sell_dynamic_roi_trend_type = CategoricalParameter(['rmi', 'ssl', 'candle', 'any'], default='any', space='sell', optimize=sell_should_optimize_dynamic_roi)
-    sell_dynamic_roi_pullback = CategoricalParameter([True, False], default=True, space='sell', optimize=sell_should_optimize_dynamic_roi)
-    sell_dynamic_roi_pullback_amount = DecimalParameter(0.005, 0.02, default=0.005, space='sell', optimize=sell_should_optimize_dynamic_roi)
-    sell_dynamic_roi_pullback_respect_table = CategoricalParameter([True, False], default=False, space='sell', optimize=sell_should_optimize_dynamic_roi)    
+    buy_multi_offset_base_nb_candles_buy = IntParameter(5, 80, default=72, load=True, space='buy', optimize=buy_should_optimize_condition_common)  
     
-    sell_custom_stoploss_atr_multipier = IntParameter(1, 8, default=3, space='sell', optimize=sell_should_optimize_custom_stoploss)  
-
-    sell_custom_sell_profit_0 = DecimalParameter(0.01, 0.1, default=0.01, space='sell', decimals=3, load=True, optimize=sell_should_optimize_custom_sell)
-    sell_custom_sell_rsi_0 = DecimalParameter(30.0, 40.0, default=33.0, space='sell', decimals=3, load=True, optimize=sell_should_optimize_custom_sell)
-    sell_custom_sell_profit_1 = DecimalParameter(0.01, 0.1, default=0.03, space='sell', decimals=3, load=True, optimize=sell_should_optimize_custom_sell)
-    sell_custom_sell_rsi_1 = DecimalParameter(30.0, 50.0, default=38.0, space='sell', decimals=2, load=True, optimize=sell_should_optimize_custom_sell)
-    sell_custom_sell_profit_2 = DecimalParameter(0.01, 0.1, default=0.05, space='sell', decimals=3, load=True, optimize=sell_should_optimize_custom_sell)
-    sell_custom_sell_rsi_2 = DecimalParameter(34.0, 50.0, default=43.0, space='sell', decimals=2, load=True, optimize=sell_should_optimize_custom_sell)
-    sell_custom_sell_profit_3 = DecimalParameter(0.06, 0.30, default=0.08, space='sell', decimals=3, load=True, optimize=sell_should_optimize_custom_sell)
-    sell_custom_sell_rsi_3 = DecimalParameter(38.0, 55.0, default=48.0, space='sell', decimals=2, load=True, optimize=sell_should_optimize_custom_sell)
-    sell_custom_sell_profit_4 = DecimalParameter(0.3, 0.6, default=0.25, space='sell', decimals=3, load=True, optimize=sell_should_optimize_custom_sell)
-    sell_custom_sell_rsi_4 = DecimalParameter(40.0, 58.0, default=50.0, space='sell', decimals=2, load=True, optimize=sell_should_optimize_custom_sell)
-    sell_custom_sell_under_profit_1 = DecimalParameter(0.01, 0.10, default=0.02, space='sell', decimals=3, load=True, optimize=sell_should_optimize_custom_sell)
-    sell_custom_sell_under_rsi_1 = DecimalParameter(36.0, 60.0, default=56.0, space='sell', decimals=1, load=True, optimize=sell_should_optimize_custom_sell)
-    sell_custom_sell_under_profit_2 = DecimalParameter(0.01, 0.10, default=0.04, space='sell', decimals=3, load=True, optimize=sell_should_optimize_custom_sell)
-    sell_custom_sell_under_rsi_2 = DecimalParameter(46.0, 66.0, default=60.0, space='sell', decimals=1, load=True, optimize=sell_should_optimize_custom_sell)
-    sell_custom_sell_under_profit_3 = DecimalParameter(0.01, 0.10, default=0.6, space='sell', decimals=3, load=True, optimize=sell_should_optimize_custom_sell)
-    sell_custom_sell_under_rsi_3 = DecimalParameter(50.0, 68.0, default=62.0, space='sell', decimals=1, load=True, optimize=sell_should_optimize_custom_sell)
-    sell_custom_sell_dec_profit_1 = DecimalParameter(0.01, 0.10, default=0.05, space='sell', decimals=3, load=True, optimize=sell_should_optimize_custom_sell)
-    sell_custom_sell_dec_profit_2 = DecimalParameter(0.05, 0.2, default=0.07, space='sell', decimals=3, load=True, optimize=sell_should_optimize_custom_sell)
-    sell_custom_sell_stoploss_under_rel_1 = DecimalParameter(0.001, 0.02, default=0.004, space='sell', load=True, optimize=sell_should_optimize_custom_sell)
-    sell_custom_sell_stoploss_under_rsi_diff_1 = DecimalParameter(0.0, 20.0, default=8.0, space='sell', load=True, optimize=sell_should_optimize_custom_sell)
-
-    sell_condition_1_enable = CategoricalParameter([True, False], default=True, space='sell', load=True, optimize=sell_should_optimize_condition_1)
-    sell_rsi_bb_1 = DecimalParameter(60.0, 80.0, default=79.5, space='sell', decimals=1, load=True, optimize=sell_should_optimize_condition_1)
-
-    sell_condition_2_enable = CategoricalParameter([True, False], default=True, space='sell', load=True, optimize=sell_should_optimize_condition_2)
-    sell_rsi_bb_2 = DecimalParameter(72.0, 90.0, default=81, space='sell', decimals=1, load=True, optimize=sell_should_optimize_condition_2)
-
-    sell_condition_3_enable = CategoricalParameter([True, False], default=True, space='sell', load=True, optimize=sell_should_optimize_condition_3)
-    sell_rsi_main_3 = DecimalParameter(77.0, 90.0, default=82, space='sell', decimals=1, load=True, optimize=sell_should_optimize_condition_3)
-
-    sell_condition_4_enable = CategoricalParameter([True, False], default=True, space='sell', load=True, optimize=sell_should_optimize_condition_4)
-    sell_dual_rsi_rsi_4 = DecimalParameter(72.0, 84.0, default=73.4, space='sell', decimals=1, load=True, optimize=sell_should_optimize_condition_4)
-    sell_dual_rsi_rsi_14_1h_4 = DecimalParameter(78.0, 92.0, default=79.6, space='sell', decimals=1, load=True, optimize=sell_should_optimize_condition_4)
-
-    sell_condition_5_enable = CategoricalParameter([True, False], default=True, space='sell', load=True, optimize=sell_should_optimize_condition_5)
-    sell_ema_relative_5 = DecimalParameter(0.005, 0.05, default=0.024, space='sell', load=True, optimize=sell_should_optimize_condition_5)
-    sell_rsi_diff_5 = DecimalParameter(0.0, 20.0, default=4.4, space='sell', load=True, optimize=sell_should_optimize_condition_5)
-
-    sell_condition_6_enable = CategoricalParameter([True, False], default=True, space='sell', load=True, optimize=sell_should_optimize_condition_6)
-    sell_rsi_under_6 = DecimalParameter(72.0, 90.0, default=79.0, space='sell', decimals=1, load=True, optimize=sell_should_optimize_condition_6)
-
-    sell_condition_7_enable = CategoricalParameter([True, False], default=True, space='sell', load=True, optimize=sell_should_optimize_condition_7)
-    sell_rsi_14_1h_7 = DecimalParameter(80.0, 95.0, default=81.7, space='sell', decimals=1, load=True, optimize=sell_should_optimize_condition_7)
-
-    sell_condition_8_enable = CategoricalParameter([True, False], default=True, space='sell', load=True, optimize=sell_should_optimize_condition_8)
-    sell_bb_relative_8 = DecimalParameter(1.05, 1.3, default=1.1, space='sell', decimals=3, load=True, optimize=sell_should_optimize_condition_8)
-
-    sell_condition_9_enable = CategoricalParameter([True, False], default=True, space='sell', load=True, optimize=sell_should_optimize_condition_9)
-    sell_multi_offset_high_offset_sma = DecimalParameter(0.99, 1.1, default=1.012, load=True, space='sell', optimize=sell_should_optimize_condition_9) 
-    
-    sell_condition_10_enable = CategoricalParameter([True, False], default=True, space='sell', load=True, optimize=sell_should_optimize_condition_10)
-    sell_multi_offset_high_offset_ema = DecimalParameter(0.99, 1.1, default=1.012, load=True, space='sell', optimize=sell_should_optimize_condition_10) 
-    
-    sell_condition_11_enable = CategoricalParameter([True, False], default=True, space='sell', load=True, optimize=sell_should_optimize_condition_11)
-    sell_multi_offset_high_offset_trima = DecimalParameter(0.99, 1.1, default=1.012, load=True, space='sell', optimize=sell_should_optimize_condition_11) 
-    
-    sell_condition_12_enable = CategoricalParameter([True, False], default=True, space='sell', load=True, optimize=sell_should_optimize_condition_12)
-    sell_multi_offset_high_offset_t3 = DecimalParameter(0.99, 1.1, default=1.012, load=True, space='sell', optimize=sell_should_optimize_condition_12) 
-    
-    sell_condition_13_enable = CategoricalParameter([True, False], default=True, space='sell', load=True, optimize=sell_should_optimize_condition_13)
-    sell_multi_offset_high_offset_kama = DecimalParameter(0.99, 1.1, default=1.012, load=True, space='sell', optimize=sell_should_optimize_condition_13)
-
-    sell_multi_offset_base_nb_candles_sell = IntParameter(5, 80, default=20, load=True, space='sell', optimize=sell_should_optimize_condition_common_9_10_11_12_13)
-
 
     order_types = {
         'buy': 'market',
@@ -402,82 +342,16 @@ class FrankieV6_MacheteModV5(IStrategy):
         sell_reason = None
 
         if (last_candle is not None):
-            """
-            if ((current_profit > self.sell_custom_sell_profit_4.value) 
-              & (last_candle['rsi_14'] < self.sell_custom_sell_rsi_4.value)
-            ):
-                sell_reason = 'signal_profit_4'
 
-            elif ((current_profit > self.sell_custom_sell_profit_3.value) 
-                & (last_candle['rsi_14'] < self.sell_custom_sell_rsi_3.value)
-            ):
-                sell_reason = 'signal_profit_3'
-
-            elif ((current_profit > self.sell_custom_sell_profit_2.value) 
-                & (last_candle['rsi_14'] < self.sell_custom_sell_rsi_2.value)
-            ):
-                sell_reason = 'signal_profit_2'
-
-            elif ((current_profit > self.sell_custom_sell_profit_1.value) 
-                & (last_candle['rsi_14'] < self.sell_custom_sell_rsi_1.value)
-            ):
-                sell_reason = 'signal_profit_1'
-
-            elif ((current_profit > self.sell_custom_sell_profit_0.value) 
-                & (last_candle['rsi_14'] < self.sell_custom_sell_rsi_0.value)
-            ):
-                sell_reason = 'signal_profit_0'
-
-            elif ((current_profit > self.sell_custom_sell_under_profit_1.value) 
-                & (last_candle['rsi_14'] < self.sell_custom_sell_under_rsi_1.value) 
-                & (last_candle['close'] < last_candle['ema_200'])
-            ):
-                sell_reason = 'signal_profit_u_1'
-
-            elif ((current_profit > self.sell_custom_sell_under_profit_2.value) 
-                & (last_candle['rsi_14'] < self.sell_custom_sell_under_rsi_2.value) 
-                & (last_candle['close'] < last_candle['ema_200'])
-            ):
-                sell_reason = 'signal_profit_u_2'
-
-            elif ((current_profit > self.sell_custom_sell_under_profit_3.value) 
-                & (last_candle['rsi_14'] < self.sell_custom_sell_under_rsi_3.value) 
-                & (last_candle['close'] < last_candle['ema_200'])
-            ):
-                sell_reason = 'signal_profit_u_3'
-                
-            elif ((current_profit > self.sell_custom_sell_dec_profit_1.value) 
-                & (last_candle['sma_200_dec'])
-            ):
-                sell_reason = 'signal_profit_d_1'
-
-            elif ((current_profit > self.sell_custom_sell_dec_profit_2.value) 
-                & (last_candle['close'] < last_candle['ema_100'])
-            ):
-                sell_reason = 'signal_profit_d_2'
-
-            elif ((current_profit < -0.0) 
-                & (last_candle['btc_not_downtrend_1h'] == False) 
-                & (last_candle['rsi_14'] > (last_candle['rsi_14_1h'] + self.sell_custom_sell_stoploss_under_rsi_diff_1.value))
-            ):
-                sell_reason = 'signal_stoploss_btc'
-
-            elif ((current_profit < -0.0) 
-                & (last_candle['close'] < last_candle['ema_200']) 
-                & (((last_candle['ema_200'] - last_candle['close']) / last_candle['close']) < self.sell_custom_sell_stoploss_under_rel_1.value) 
-                & (last_candle['rsi_14'] > (last_candle['rsi_14_1h'] + self.sell_custom_sell_stoploss_under_rsi_diff_1.value))
-            ):
-                sell_reason = 'signal_stoploss_u_1'
-            """
             if ((current_profit > 0.0) 
                 & (last_candle['close'] > last_candle['bb_middleband_20_2_1h'])
             ):
-                sell_reason = 'bb_middleband_20_win'
+                sell_reason = 'bb_middleband_20_2_1h_win'
 
             elif ((current_profit < 0.0) 
                 & (last_candle['close'] > last_candle['bb_middleband_20_2_1h'])
             ):
-                sell_reason = 'bb_middleband_20_loss'
+                sell_reason = 'bb_middleband_20_2_1h_loss'
 
         return sell_reason
 
@@ -486,8 +360,6 @@ class FrankieV6_MacheteModV5(IStrategy):
 
         pairs = self.dp.current_whitelist()
         informative_pairs = [(pair, self.inf_1h) for pair in pairs]
-        informative_pairs.append(('BTC/USDT', self.timeframe))
-        informative_pairs.append(('BTC/USDT', self.inf_1h))
         return informative_pairs
 
 
@@ -625,77 +497,19 @@ class FrankieV6_MacheteModV5(IStrategy):
         dataframe['volume_mean_30'] = dataframe['volume'].rolling(30).mean()
 
         dataframe['sma_offset_buy'] = (ta.SMA(dataframe, self.buy_multi_offset_base_nb_candles_buy.value) * self.buy_multi_offset_low_offset_sma.value)
-        dataframe['sma_offset_sell'] = (ta.SMA(dataframe, self.sell_multi_offset_base_nb_candles_sell.value) * self.sell_multi_offset_high_offset_sma.value)
-
         dataframe['ema_offset_buy'] = (ta.EMA(dataframe, self.buy_multi_offset_base_nb_candles_buy.value) * self.buy_multi_offset_low_offset_ema.value)
-        dataframe['ema_offset_sell'] = (ta.EMA(dataframe, self.sell_multi_offset_base_nb_candles_sell.value) * self.sell_multi_offset_high_offset_ema.value)
-
         dataframe['trima_offset_buy'] = (ta.TRIMA(dataframe, self.buy_multi_offset_base_nb_candles_buy.value) * self.buy_multi_offset_low_offset_trima.value)
-        dataframe['trima_offset_sell'] = (ta.TRIMA(dataframe, self.sell_multi_offset_base_nb_candles_sell.value) * self.sell_multi_offset_high_offset_trima.value)
-
         dataframe['t3_offset_buy'] = (ta.T3(dataframe, self.buy_multi_offset_base_nb_candles_buy.value) * self.buy_multi_offset_low_offset_t3.value)
-        dataframe['t3_offset_sell'] = (ta.T3(dataframe, self.sell_multi_offset_base_nb_candles_sell.value) * self.sell_multi_offset_high_offset_t3.value)
-
         dataframe['kama_offset_buy'] = (ta.KAMA(dataframe, self.buy_multi_offset_base_nb_candles_buy.value) * self.buy_multi_offset_low_offset_kama.value)
-        dataframe['kama_offset_sell'] = (ta.KAMA(dataframe, self.sell_multi_offset_base_nb_candles_sell.value) * self.sell_multi_offset_high_offset_kama.value)
 
         return dataframe
-
-
-    def info_tf_btc_indicators(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
-        
-        dataframe['rsi_14'] = ta.RSI(dataframe, timeperiod=14)
-        dataframe['not_downtrend'] = ((dataframe['close'] > dataframe['close'].shift(2)) | (dataframe['rsi_14'] > 50))
-        ignore_columns = ['date', 'open', 'high', 'low', 'close', 'volume']
-        dataframe.rename(columns=lambda s: "btc_" + s if (not s in ignore_columns) else s, inplace=True)
-        return dataframe
-
-
-    def merge_btc_informative_pair(self, dataframe, btc_info_tf, timeframe, inf_1h, ffill):
-
-        dataframe = merge_informative_pair(dataframe, btc_info_tf, timeframe, inf_1h, ffill)
-
-        for prefix in ["x", "y", ""]:
-            drop_columns = [(s + "_" + self.inf_1h + "_" + prefix) for s in ['date', 'open', 'high', 'low', 'close', 'volume']]
-            dataframe.drop(columns=dataframe.columns.intersection(drop_columns), inplace=True)
-
-        return dataframe
-
-
-    def stoploss_tf_indicators(self, dataframe, metadata):
-
-        dataframe['atr'] = ta.ATR(dataframe, timeperiod=14)      
-        dataframe['rmi'] = RMI(dataframe, length=24, mom=5)
-        ssldown, sslup = SSLChannels_ATR(dataframe, length=21)
-        dataframe['ssl-dir'] = np.where(sslup > ssldown,'up','down')        
-        dataframe['rmi-up'] = np.where(dataframe['rmi'] >= dataframe['rmi'].shift(),1,0)      
-        dataframe['rmi-up-trend'] = np.where(dataframe['rmi-up'].rolling(5).sum() >= 3,1,0) 
-        dataframe['candle-up'] = np.where(dataframe['close'] >= dataframe['close'].shift(),1,0)
-        dataframe['candle-up-trend'] = np.where(dataframe['candle-up'].rolling(5).sum() >= 3,1,0)
-
-        if self.dp.runmode.value in ('backtest', 'hyperopt'):
-            self.custom_trade_info[metadata['pair']]['atr'] = dataframe[['date', 'atr']].copy().set_index('date')
-            self.custom_trade_info[metadata['pair']]['ssl-dir'] = dataframe[['date', 'ssl-dir']].copy().set_index('date')
-            self.custom_trade_info[metadata['pair']]['rmi-up-trend'] = dataframe[['date', 'rmi-up-trend']].copy().set_index('date')
-            self.custom_trade_info[metadata['pair']]['candle-up-trend'] = dataframe[['date', 'candle-up-trend']].copy().set_index('date')
-
-        return dataframe  
 
 
     def populate_indicators(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
 
-        self.custom_trade_info[metadata['pair']] = self.populate_trades(metadata['pair'])
-        
         informative_1h = self.informative_1h_indicators(dataframe, metadata)
-        dataframe = merge_informative_pair(dataframe, informative_1h, self.timeframe, self.inf_1h, ffill=True)
-
-        btc_info_tf = self.dp.get_pair_dataframe("BTC/USDT", self.inf_1h)
-        btc_info_tf = self.info_tf_btc_indicators(btc_info_tf, metadata)
-        dataframe = self.merge_btc_informative_pair(dataframe, btc_info_tf, self.timeframe, self.inf_1h, ffill=True)
-         
+        dataframe = merge_informative_pair(dataframe, informative_1h, self.timeframe, self.inf_1h, ffill=True)       
         dataframe = self.normal_tf_indicators(dataframe, metadata)
-
-        dataframe = self.stoploss_tf_indicators(dataframe, metadata)
  
         return dataframe
 
@@ -705,7 +519,7 @@ class FrankieV6_MacheteModV5(IStrategy):
         conditions = []
 
         dataframe.loc[:, 'buy_tag'] = ''
-        dataframe.loc[:, 'buy_signal_count'] = 0
+        dataframe.loc[:, 'buy_condition_score_sum'] = 0
 
         dataframe['buy_condition_1'] = (
             (
@@ -726,7 +540,7 @@ class FrankieV6_MacheteModV5(IStrategy):
             )
         )
         dataframe.loc[dataframe['buy_condition_1'], 'buy_tag'] += '1 '
-        dataframe.loc[dataframe['buy_condition_1'], 'buy_signal_count'] += 1
+        dataframe.loc[dataframe['buy_condition_1'], 'buy_condition_score_sum'] += self.buy_condition_score_1.value
 
         dataframe['buy_condition_2'] = (
             (
@@ -744,7 +558,7 @@ class FrankieV6_MacheteModV5(IStrategy):
             )
         )
         dataframe.loc[dataframe['buy_condition_2'], 'buy_tag'] += '2 '
-        dataframe.loc[dataframe['buy_condition_2'], 'buy_signal_count'] += 1
+        dataframe.loc[dataframe['buy_condition_2'], 'buy_condition_score_sum'] += self.buy_condition_score_2.value
 
         dataframe['buy_condition_3'] = (
             (
@@ -764,7 +578,7 @@ class FrankieV6_MacheteModV5(IStrategy):
             )
         )
         dataframe.loc[dataframe['buy_condition_3'], 'buy_tag'] += '3 '
-        dataframe.loc[dataframe['buy_condition_3'], 'buy_signal_count'] += 1
+        dataframe.loc[dataframe['buy_condition_3'], 'buy_condition_score_sum'] += self.buy_condition_score_3.value
 
         dataframe['buy_condition_4'] = (
             (
@@ -779,7 +593,7 @@ class FrankieV6_MacheteModV5(IStrategy):
             )
         )
         dataframe.loc[dataframe['buy_condition_4'], 'buy_tag'] += '4 '
-        dataframe.loc[dataframe['buy_condition_4'], 'buy_signal_count'] += 1
+        dataframe.loc[dataframe['buy_condition_4'], 'buy_condition_score_sum'] += self.buy_condition_score_4.value
 
         dataframe['buy_condition_5'] = (
             (
@@ -798,7 +612,7 @@ class FrankieV6_MacheteModV5(IStrategy):
             )
         )
         dataframe.loc[dataframe['buy_condition_5'], 'buy_tag'] += '5 '
-        dataframe.loc[dataframe['buy_condition_5'], 'buy_signal_count'] += 1
+        dataframe.loc[dataframe['buy_condition_5'], 'buy_condition_score_sum'] += self.buy_condition_score_5.value
 
         dataframe['buy_condition_6'] = (
             (
@@ -815,7 +629,7 @@ class FrankieV6_MacheteModV5(IStrategy):
             )
         )
         dataframe.loc[dataframe['buy_condition_6'], 'buy_tag'] += '6 '
-        dataframe.loc[dataframe['buy_condition_6'], 'buy_signal_count'] += 1
+        dataframe.loc[dataframe['buy_condition_6'], 'buy_condition_score_sum'] += self.buy_condition_score_6.value
 
         dataframe['buy_condition_7'] = (
             (
@@ -833,7 +647,7 @@ class FrankieV6_MacheteModV5(IStrategy):
             )
         )
         dataframe.loc[dataframe['buy_condition_7'], 'buy_tag'] += '7 '
-        dataframe.loc[dataframe['buy_condition_7'], 'buy_signal_count'] += 1
+        dataframe.loc[dataframe['buy_condition_7'], 'buy_condition_score_sum'] += self.buy_condition_score_7.value
 
         dataframe['buy_condition_8'] = (
             (
@@ -851,7 +665,7 @@ class FrankieV6_MacheteModV5(IStrategy):
             )
         )
         dataframe.loc[dataframe['buy_condition_8'], 'buy_tag'] += '8 '
-        dataframe.loc[dataframe['buy_condition_8'], 'buy_signal_count'] += 1
+        dataframe.loc[dataframe['buy_condition_8'], 'buy_condition_score_sum'] += self.buy_condition_score_8.value
 
         dataframe['buy_condition_9'] = (
             (
@@ -871,7 +685,7 @@ class FrankieV6_MacheteModV5(IStrategy):
             )
         )
         dataframe.loc[dataframe['buy_condition_9'], 'buy_tag'] += '9 '
-        dataframe.loc[dataframe['buy_condition_9'], 'buy_signal_count'] += 1
+        dataframe.loc[dataframe['buy_condition_9'], 'buy_condition_score_sum'] += self.buy_condition_score_9.value
 
         dataframe['buy_condition_10'] = (
             (
@@ -889,7 +703,7 @@ class FrankieV6_MacheteModV5(IStrategy):
             )
         )
         dataframe.loc[dataframe['buy_condition_10'], 'buy_tag'] += '10 '
-        dataframe.loc[dataframe['buy_condition_10'], 'buy_signal_count'] += 1
+        dataframe.loc[dataframe['buy_condition_10'], 'buy_condition_score_sum'] += self.buy_condition_score_10.value
 
         dataframe['buy_condition_11'] = (
             (
@@ -910,7 +724,7 @@ class FrankieV6_MacheteModV5(IStrategy):
             )
         )
         dataframe.loc[dataframe['buy_condition_11'], 'buy_tag'] += '11 '
-        dataframe.loc[dataframe['buy_condition_11'], 'buy_signal_count'] += 1
+        dataframe.loc[dataframe['buy_condition_11'], 'buy_condition_score_sum'] += self.buy_condition_score_11.value
 
         dataframe['buy_condition_12'] = (
             (
@@ -927,7 +741,7 @@ class FrankieV6_MacheteModV5(IStrategy):
             )
         )
         dataframe.loc[dataframe['buy_condition_12'], 'buy_tag'] += '12 '
-        dataframe.loc[dataframe['buy_condition_12'], 'buy_signal_count'] += 1
+        dataframe.loc[dataframe['buy_condition_12'], 'buy_condition_score_sum'] += self.buy_condition_score_12.value
 
         dataframe['buy_condition_13'] = (
             (
@@ -945,7 +759,7 @@ class FrankieV6_MacheteModV5(IStrategy):
             )
         )
         dataframe.loc[dataframe['buy_condition_13'], 'buy_tag'] += '13 '
-        dataframe.loc[dataframe['buy_condition_13'], 'buy_signal_count'] += 1
+        dataframe.loc[dataframe['buy_condition_13'], 'buy_condition_score_sum'] += self.buy_condition_score_13.value
 
         dataframe['buy_condition_14'] = (
             (
@@ -965,7 +779,7 @@ class FrankieV6_MacheteModV5(IStrategy):
             )
         )
         dataframe.loc[dataframe['buy_condition_14'], 'buy_tag'] += '14 '
-        dataframe.loc[dataframe['buy_condition_14'], 'buy_signal_count'] += 1
+        dataframe.loc[dataframe['buy_condition_14'], 'buy_condition_score_sum'] += self.buy_condition_score_14.value
 
         dataframe['buy_condition_15'] = (
             (
@@ -984,7 +798,7 @@ class FrankieV6_MacheteModV5(IStrategy):
             )
         )
         dataframe.loc[dataframe['buy_condition_15'], 'buy_tag'] += '15 '
-        dataframe.loc[dataframe['buy_condition_15'], 'buy_signal_count'] += 1
+        dataframe.loc[dataframe['buy_condition_15'], 'buy_condition_score_sum'] += self.buy_condition_score_15.value
 
         dataframe['buy_condition_16'] = (
             (
@@ -1001,7 +815,7 @@ class FrankieV6_MacheteModV5(IStrategy):
             )
         )
         dataframe.loc[dataframe['buy_condition_16'], 'buy_tag'] += '16 '
-        dataframe.loc[dataframe['buy_condition_16'], 'buy_signal_count'] += 1
+        dataframe.loc[dataframe['buy_condition_16'], 'buy_condition_score_sum'] += self.buy_condition_score_16.value
 
         dataframe['buy_condition_17'] = (
             (
@@ -1016,7 +830,7 @@ class FrankieV6_MacheteModV5(IStrategy):
             )
         )
         dataframe.loc[dataframe['buy_condition_17'], 'buy_tag'] += '17 '
-        dataframe.loc[dataframe['buy_condition_17'], 'buy_signal_count'] += 1
+        dataframe.loc[dataframe['buy_condition_17'], 'buy_condition_score_sum'] += self.buy_condition_score_17.value
 
         dataframe['buy_condition_18'] = (
             (
@@ -1038,7 +852,7 @@ class FrankieV6_MacheteModV5(IStrategy):
             )
         )
         dataframe.loc[dataframe['buy_condition_18'], 'buy_tag'] += '18 '
-        dataframe.loc[dataframe['buy_condition_18'], 'buy_signal_count'] += 1
+        dataframe.loc[dataframe['buy_condition_18'], 'buy_condition_score_sum'] += self.buy_condition_score_18.value
 
         dataframe['buy_condition_19'] = (
             (
@@ -1058,7 +872,7 @@ class FrankieV6_MacheteModV5(IStrategy):
             )
         )
         dataframe.loc[dataframe['buy_condition_19'], 'buy_tag'] += '19 '
-        dataframe.loc[dataframe['buy_condition_19'], 'buy_signal_count'] += 1
+        dataframe.loc[dataframe['buy_condition_19'], 'buy_condition_score_sum'] += self.buy_condition_score_19.value
 
         dataframe['buy_condition_20'] = (
             (
@@ -1074,7 +888,7 @@ class FrankieV6_MacheteModV5(IStrategy):
             )
         )
         dataframe.loc[dataframe['buy_condition_20'], 'buy_tag'] += '20 '
-        dataframe.loc[dataframe['buy_condition_20'], 'buy_signal_count'] += 1
+        dataframe.loc[dataframe['buy_condition_20'], 'buy_condition_score_sum'] += self.buy_condition_score_20.value
 
         dataframe['buy_condition_21'] = (
             (
@@ -1089,7 +903,7 @@ class FrankieV6_MacheteModV5(IStrategy):
             )
         )
         dataframe.loc[dataframe['buy_condition_21'], 'buy_tag'] += '21 '
-        dataframe.loc[dataframe['buy_condition_21'], 'buy_signal_count'] += 1
+        dataframe.loc[dataframe['buy_condition_21'], 'buy_condition_score_sum'] += self.buy_condition_score_21.value
         
         dataframe['buy_condition_22'] = (
             (
@@ -1106,7 +920,7 @@ class FrankieV6_MacheteModV5(IStrategy):
             )
         )
         dataframe.loc[dataframe['buy_condition_22'], 'buy_tag'] += '22 '
-        dataframe.loc[dataframe['buy_condition_22'], 'buy_signal_count'] += 1
+        dataframe.loc[dataframe['buy_condition_22'], 'buy_condition_score_sum'] += self.buy_condition_score_22.value
         
         dataframe['buy_condition_23'] = (
             (
@@ -1118,7 +932,7 @@ class FrankieV6_MacheteModV5(IStrategy):
             )
         )
         dataframe.loc[dataframe['buy_condition_23'], 'buy_tag'] += '23 '
-        dataframe.loc[dataframe['buy_condition_23'], 'buy_signal_count'] += 1
+        dataframe.loc[dataframe['buy_condition_23'], 'buy_condition_score_sum'] += self.buy_condition_score_23.value
         
         dataframe['buy_condition_24'] = (
             (
@@ -1130,7 +944,7 @@ class FrankieV6_MacheteModV5(IStrategy):
             )
         )
         dataframe.loc[dataframe['buy_condition_24'], 'buy_tag'] += '24 '
-        dataframe.loc[dataframe['buy_condition_24'], 'buy_signal_count'] += 1
+        dataframe.loc[dataframe['buy_condition_24'], 'buy_condition_score_sum'] += self.buy_condition_score_24.value
         
         dataframe['buy_condition_25'] = (
             (
@@ -1142,7 +956,7 @@ class FrankieV6_MacheteModV5(IStrategy):
             )
         )
         dataframe.loc[dataframe['buy_condition_25'], 'buy_tag'] += '25 '
-        dataframe.loc[dataframe['buy_condition_25'], 'buy_signal_count'] += 1
+        dataframe.loc[dataframe['buy_condition_25'], 'buy_condition_score_sum'] += self.buy_condition_score_25.value
         
         dataframe['buy_condition_26'] = (
             (
@@ -1154,7 +968,7 @@ class FrankieV6_MacheteModV5(IStrategy):
             )
         )
         dataframe.loc[dataframe['buy_condition_26'], 'buy_tag'] += '26 '
-        dataframe.loc[dataframe['buy_condition_26'], 'buy_signal_count'] += 1
+        dataframe.loc[dataframe['buy_condition_26'], 'buy_condition_score_sum'] += self.buy_condition_score_26.value
         
         dataframe['buy_condition_27'] = (
             (
@@ -1166,11 +980,10 @@ class FrankieV6_MacheteModV5(IStrategy):
             )
         )
         dataframe.loc[dataframe['buy_condition_27'], 'buy_tag'] += '27 '
-        dataframe.loc[dataframe['buy_condition_27'], 'buy_signal_count'] += 1
+        dataframe.loc[dataframe['buy_condition_27'], 'buy_condition_score_sum'] += self.buy_condition_score_27.value
 
         conditions.append(
-            (dataframe['buy_signal_count'] >= self.buy_voting_ensemble.value) 
-            #& (dataframe['close'] < dataframe['bb_middleband_20_1']) 
+            (dataframe['buy_condition_score_sum'] >= self.buy_min_score.value)
             & (dataframe['close'] < dataframe['bb_middleband_20_1_1h'])
         )
             
@@ -1183,267 +996,8 @@ class FrankieV6_MacheteModV5(IStrategy):
         return dataframe
 
     def populate_sell_trend(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
-        conditions = []
-
-        """
-        conditions.append(
-            (
-                self.sell_condition_1_enable.value &
-
-                (dataframe['rsi_14'] > self.sell_rsi_bb_1.value) &
-                (dataframe['close'] > dataframe['bb_upperband_20_2']) &
-                (dataframe['close'].shift(1) > dataframe['bb_upperband_20_2'].shift(1)) &
-                (dataframe['close'].shift(2) > dataframe['bb_upperband_20_2'].shift(2)) &
-                (dataframe['close'].shift(3) > dataframe['bb_upperband_20_2'].shift(3)) &
-                (dataframe['close'].shift(4) > dataframe['bb_upperband_20_2'].shift(4)) &
-                (dataframe['close'].shift(5) > dataframe['bb_upperband_20_2'].shift(5)) &
-                (dataframe['volume'] > 0)
-            )
-        )
-
-        conditions.append(
-            (
-                self.sell_condition_2_enable.value &
-
-                (dataframe['rsi_14'] > self.sell_rsi_bb_2.value) &
-                (dataframe['close'] > dataframe['bb_upperband_20_2']) &
-                (dataframe['close'].shift(1) > dataframe['bb_upperband_20_2'].shift(1)) &
-                (dataframe['close'].shift(2) > dataframe['bb_upperband_20_2'].shift(2)) &
-                (dataframe['volume'] > 0)
-            )
-        )
-
-        conditions.append(
-            (
-                self.sell_condition_3_enable.value &
-
-                (dataframe['rsi_14'] > self.sell_rsi_main_3.value) &
-                (dataframe['volume'] > 0)
-            )
-        )
-
-        conditions.append(
-            (
-                self.sell_condition_4_enable.value &
-
-                (dataframe['rsi_14'] > self.sell_dual_rsi_rsi_4.value) &
-                (dataframe['rsi_14_1h'] > self.sell_dual_rsi_rsi_14_1h_4.value) &
-                (dataframe['volume'] > 0)
-            )
-        )
-
-        conditions.append(
-            (
-                self.sell_condition_6_enable.value &
-
-                (dataframe['close'] < dataframe['ema_200']) &
-                (dataframe['close'] > dataframe['ema_50']) &
-                (dataframe['rsi_14'] > self.sell_rsi_under_6.value) &
-                (dataframe['volume'] > 0)
-            )
-        )
-
-        conditions.append(
-            (
-                self.sell_condition_7_enable.value &
-
-                (dataframe['rsi_14_1h'] > self.sell_rsi_14_1h_7.value) &
-                (qtpylib.crossed_below(dataframe['ema_12'], dataframe['ema_26'])) &
-                (dataframe['volume'] > 0)
-            )
-        )
-
-        conditions.append(
-            (
-                self.sell_condition_8_enable.value &
-
-                (dataframe['close'] > dataframe['bb_upperband_20_2_1h'] * self.sell_bb_relative_8.value) &
-                (dataframe['volume'] > 0)
-            )
-        )
-
-        conditions.append(
-            (
-                self.sell_condition_9_enable.value &
-
-                (dataframe['close'] > dataframe['sma_offset_sell']) &
-                (dataframe['volume'] > 0)
-            )
-        )
-
-        conditions.append(
-            (
-                self.sell_condition_10_enable.value &
-
-                (dataframe['close'] > dataframe['ema_offset_sell']) &
-                (dataframe['volume'] > 0)
-            )
-        )
-
-        conditions.append(
-            (
-                self.sell_condition_11_enable.value &
-
-                (dataframe['close'] > dataframe['trima_offset_sell']) &
-                (dataframe['volume'] > 0)
-            )
-        )
-
-        conditions.append(
-            (
-                self.sell_condition_12_enable.value &
-
-                (dataframe['close'] > dataframe['t3_offset_sell']) &
-                (dataframe['volume'] > 0)
-            )
-        )
-
-        conditions.append(
-            (
-                self.sell_condition_13_enable.value &
-
-                (dataframe['close'] > dataframe['kama_offset_sell']) &
-                (dataframe['volume'] > 0)
-            )
-        )
-        """
-
-        if conditions:
-            dataframe.loc[
-                reduce(lambda x, y: x | y, conditions),
-                'sell'
-            ] = 0
-
+        dataframe.loc[(),'sell'] = 0
         return dataframe
-
-    custom_stop_info = {}
-    def custom_stoploss(self, pair: str, trade: 'Trade', current_time: datetime, current_rate: float, current_profit: float, **kwargs) -> float:
-        
-        dataframe, _ = self.dp.get_analyzed_dataframe(pair, self.timeframe)
-        current_candle = dataframe.iloc[-1].squeeze()
-        last_candle = dataframe.iloc[-2].squeeze()
-
-        
-        new_stoploss_price = last_candle['high'] - (current_candle['atr'] * self.sell_custom_stoploss_atr_multipier.value)
-
-        if not pair in self.custom_stop_info:
-            self.custom_stop_info[pair] = new_stoploss_price
-
-        last_stoploss_price = self.custom_stop_info[pair]
-
-        if new_stoploss_price >= last_stoploss_price:
-            stoploss_price = new_stoploss_price
-        else:
-            stoploss_price = last_stoploss_price
-
-        if stoploss_price < current_rate:
-            self.custom_stop_info[pair] = stoploss_price
-            return (stoploss_price / current_rate) - 1
-
-        return 1
-
-
-    def min_roi_reached_dynamic(self, trade: Trade, current_profit: float, current_time: datetime, trade_dur: int) -> Tuple[Optional[int], Optional[float]]:
-
-        minimal_roi = self.minimal_roi
-        _, table_roi = self.min_roi_reached_entry(trade_dur)
-
-        if self.custom_trade_info and trade and trade.pair in self.custom_trade_info:
-
-            rmi_trend = self.get_custom_trade_info_indicator_by_key('rmi-up-trend', trade.pair, current_time)
-            candle_trend = self.get_custom_trade_info_indicator_by_key('candle-up-trend', trade.pair, current_time)
-            ssl_dir = self.get_custom_trade_info_indicator_by_key('ssl-dir', trade.pair, current_time)
-
-            min_roi = table_roi
-            max_profit = trade.calc_profit_ratio(trade.max_rate)
-            pullback_value = (max_profit - self.sell_dynamic_roi_pullback_amount.value)
-            in_trend = False
-
-            if self.sell_dynamic_roi_trend_type.value == 'rmi' or self.sell_dynamic_roi_trend_type.value == 'any':
-                if rmi_trend == 1:
-                    in_trend = True
-            if self.sell_dynamic_roi_trend_type.value == 'ssl' or self.sell_dynamic_roi_trend_type.value == 'any':
-                if ssl_dir == 'up':
-                    in_trend = True
-            if self.sell_dynamic_roi_trend_type.value == 'candle' or self.sell_dynamic_roi_trend_type.value == 'any':
-                if candle_trend == 1:
-                    in_trend = True
-
-            if (in_trend == True):
-                min_roi = 100
-
-                if self.sell_dynamic_roi_pullback.value == True and (current_profit < pullback_value):
-
-                    if self.sell_dynamic_roi_pullback_respect_table.value == True:
-                        min_roi = table_roi
-                    else:
-                        min_roi = current_profit / 2
-
-        else:
-            min_roi = table_roi
-
-        return trade_dur, min_roi
-
-
-    def min_roi_reached(self, trade: Trade, current_profit: float, current_time: datetime) -> bool: 
-
-        trade_dur = int((current_time.timestamp() - trade.open_date_utc.timestamp()) // 60)
-
-        if self.use_dynamic_roi:
-            _, roi = self.min_roi_reached_dynamic(trade, current_profit, current_time, trade_dur)
-        else:
-            _, roi = self.min_roi_reached_entry(trade_dur)
-        if roi is None:
-            return False
-        else:
-            return current_profit > roi    
-    
-
-    def get_current_price(self, pair: str, refresh: bool) -> float:
-        if not refresh:
-            rate = self.custom_current_price_cache.get(pair)
-            if rate:
-                return rate
-
-        ask_strategy = self.config.get('ask_strategy', {})
-        if ask_strategy.get('use_order_book', False):
-            ob = self.dp.orderbook(pair, 1)
-            rate = ob[f"{ask_strategy['price_side']}s"][0][0]
-        else:
-            ticker = self.dp.ticker(pair)
-            rate = ticker['last']
-
-        self.custom_current_price_cache[pair] = rate
-        return rate 
-
-
-    def populate_trades(self, pair: str) -> dict:
-
-        if not pair in self.custom_trade_info:
-            self.custom_trade_info[pair] = {}
-
-        trade_data = {}
-        trade_data['active_trade'] = False
-
-        if self.config['runmode'].value in ('live', 'dry_run'):
-            
-            active_trade = Trade.get_trades([Trade.pair == pair, Trade.is_open.is_(True),]).all()
-
-            if active_trade:
-                current_rate = self.get_current_price(pair, True)
-                active_trade[0].adjust_min_max_rates(current_rate, current_rate)
-
-        return trade_data
-
-
-    def get_custom_trade_info_indicator_by_key(self, key, pair, current_time):
-
-        if self.config['runmode'].value in ('live', 'dry_run'):
-            dataframe, last_updated = self.dp.get_analyzed_dataframe(pair=pair, timeframe=self.timeframe)
-            indicator = dataframe[key].iat[-1]
-        else:
-            indicator = self.custom_trade_info[pair][key].loc[current_time][key]
-        return indicator
 
 
 def RMI(dataframe, *, length=20, mom=5):
